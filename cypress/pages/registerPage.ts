@@ -1,7 +1,10 @@
+import { Roles } from '../types/roles';
+import { User } from '../types/user';
+
 export const registerPage = {
 
 
-    attemptRegister: (user) => {
+    attemptRegister: (user: User ) => {
 
         cy.get('[name=username]').type(user.username)
         cy.get('[name=password]').type(user.password)

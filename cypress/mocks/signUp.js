@@ -5,7 +5,7 @@ export const signUpMocks = {
             req.reply({
                 statusCode: 201,
                 body: {
-                    token: 'fakeToken'
+                token: 'fakeToken'
                 }
             })
         })
