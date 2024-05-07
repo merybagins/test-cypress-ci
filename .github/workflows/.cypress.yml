@@ -26,21 +26,26 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run --browser chrome
       - name: Generate Allure report
+        if: always()
         run: npx allure generate --single-file
       - name: Checkout gh-pages branch
         uses: actions/checkout@v4
+        if: always()
         with:
           ref: 'gh-pages'
           path: 'gh-pages'
       - name: Clear old reports
+        if: always()
         run: |
           cd gh-pages
           git rm -rf .
           git clean -fxd
       - name: Copy report to gh-pages
+        if: always()
         run: |
           cp -r allure-report/* gh-pages/
       - name: Commit and push
+        if: always()
         run: |
           cd gh-pages
           git config user.name github-actions
@@ -93,7 +98,7 @@ jobs:
       - run: npm install
       - uses: browser-actions/setup-edge@v1
       - name: Run Cypress tests
-        run: npx cypress run --browser edge --spec "/cypress/e2e/isolation/*"
+        run: npx cypress run --browser edge --spec "cypress/e2e/isolation/*"
       - name: Upload Cypress screenshots
         if: failure()
         uses: actions/upload-artifact@v3
@@ -107,9 +112,9 @@ jobs:
           name: cypress-videos
           path: cypress/videos/
 
-    edge-tests-part-2:
-      runs-on: ubuntu-latest
-      steps:
+  edge-tests-part-2:
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 18
         uses: actions/setup-node@v4
@@ -128,7 +133,7 @@ jobs:
       - run: npm install
       - uses: browser-actions/setup-edge@v1
       - name: Run Cypress tests
-        run: npx cypress run --browser edge --spec "/cypress/e2e/*cy.js"
+        run: npx cypress run --browser edge --spec "cypress/e2e/*.cy.ts"
       - name: Upload Cypress screenshots
         if: failure()
         uses: actions/upload-artifact@v3
