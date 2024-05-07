@@ -100,7 +100,6 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots/
-
       - name: Upload Cypress videos
         if: failure()
         uses: actions/upload-artifact@v3
@@ -136,7 +135,6 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots/
-
       - name: Upload Cypress videos
         if: failure()
         uses: actions/upload-artifact@v3
