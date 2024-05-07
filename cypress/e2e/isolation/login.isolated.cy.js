@@ -1,8 +1,9 @@
-// <reference types="cypress" />
+/// <reference types="cypress" />
 
 import { getFakeLoginResponse } from "../../generators/userGenerator"
 import { loginMocks } from "../../mocks/postSignIn"
 import { getUsersMocks } from "../../mocks/getUsers"
+import { loginPage } from "../../pages/loginPage"
 
 describe('Login tests in isolation', () => {
     beforeEach(() => {
@@ -14,9 +15,7 @@ describe('Login tests in isolation', () => {
         loginMocks.mockSuccess(fakeLoginResponse)
         getUsersMocks.mockUsers();
 
-        cy.get('[name=username]').type(fakeLoginResponse.username)
-        cy.get('[name=password]').type('password')
-        cy.get('.btn-primary').click()
+        loginPage.attemptLogin(fakeLoginResponse.username, 'xyz')
 
         cy.get('h1').should('contain.text', fakeLoginResponse.firstName)
     })
